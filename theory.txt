@@ -1,0 +1,18 @@
+1.Set up
+- npm init -y -> default parameters in pakage.json
+- npm i express ejs express-ejs-layouts
+->i: install
+->ejs: template
+- npm i --save-dev nodemon
+-> save development dependancies
+-> nodemon: auto refresh & restore
+- after done set up, we use the term which we create in pakage: npm run devStart 
+
+2. require all file need & export
+
+3. layout.ejs - create boilerplate
+- ejs importing everything from other files
+
+4. install .env
+- npm i --save-dev dotenv
+- NODE_ENV : more detail https://stackjava.com/nodejs/thiet-lap-node-env-cho-node-js-moi-truong-product-dev-test.html
