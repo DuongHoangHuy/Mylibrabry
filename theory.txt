@@ -16,3 +16,10 @@
 4. install .env
 - npm i --save-dev dotenv
 - NODE_ENV : more detail https://stackjava.com/nodejs/thiet-lap-node-env-cho-node-js-moi-truong-product-dev-test.html
+
+5.function<%=  %>
+- tell server create whatever text you got from 
+inside function. 
+
+6. express not easy to access input element from actual server:
+- innstall body-parser

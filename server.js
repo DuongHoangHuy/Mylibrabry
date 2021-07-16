@@ -6,8 +6,11 @@ if(process.env.NODE_ENV !== 'production'){
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
-const indexRouter = require('./routes/index');
+// const bodyParser = require('body-parser')
 
+
+const indexRouter = require('./routes/index');
+const authorRouter = require('./routes/authors');
 
 app.set('view engine','ejs');//use ejs as view engine
 app.set('views', __dirname+'/views');// where our views come from
@@ -16,8 +19,11 @@ app.use(expressLayouts);// use this layout
 app.use(express.static('public'));// set up public file where to be
 // set up
 
-//work
+//-----------------work-----------------------
 app.use('/', indexRouter);
+app.use('/authors', authorRouter);
+app.use(express.urlencoded({limit: '10mb', extended:false}))
+//-----------------work-----------------------
 
 const mongoose = require('mongoose'); // use mongoose
 mongoose.connect(process.env.DATABASE_URL,{useUnifiedTopology: true, useNewUrlParser: true}); 
