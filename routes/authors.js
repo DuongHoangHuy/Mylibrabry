@@ -1,9 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Author = require('../models/author')
+
 // All authors route
-router.get('/', (req, res)=>{
-    res.render('authors/index'); // just work when connect to server
+router.get('/', async (req, res)=>{
+    try{
+        const authors = await Author.find({})
+        res.render('authors/index', {authors: authors})
+    }catch{
+        res.render('/')
+    }
 }); 
 
 // New author
@@ -12,8 +18,19 @@ router.get('/new', (req, res)=>{
 }); 
 
 // Create authors route
-router.post('/', (req, res)=>{
-    res.send(req.body.name)
+router.post('/',express.urlencoded({limit: '10mb', extended: false}), async (req, res)=>{
+    const author = new Author({
+        name: req.body.name
+    })
+    try{
+        const newAuthor = await author.save()
+        res.redirect('authors')
+    }catch{
+        res.render('authors/new', {
+            author: author,
+            errorMessage: 'Error creating Author'
+        })
+    }
 })
 
 module.exports = router;

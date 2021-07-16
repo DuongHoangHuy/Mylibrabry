@@ -3,10 +3,10 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 // Set up
+const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
-// const bodyParser = require('body-parser')
 
 
 const indexRouter = require('./routes/index');
@@ -22,7 +22,6 @@ app.use(express.static('public'));// set up public file where to be
 //-----------------work-----------------------
 app.use('/', indexRouter);
 app.use('/authors', authorRouter);
-app.use(express.urlencoded({limit: '10mb', extended:false}))
 //-----------------work-----------------------
 
 const mongoose = require('mongoose'); // use mongoose
