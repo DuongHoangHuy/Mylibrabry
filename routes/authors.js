@@ -22,7 +22,7 @@ router.get('/', async (req, res)=>{
 // New author
 router.get('/new', (req, res)=>{
     res.render('authors/new', { author: new Author() }); 
-}); 
+});
 
 // Create authors route
 router.post('/',express.urlencoded({limit: '10mb', extended: false}), async (req, res)=>{

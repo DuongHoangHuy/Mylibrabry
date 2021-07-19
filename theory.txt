@@ -23,3 +23,6 @@ inside function.
 
 6. express not easy to access input element from actual server:
 - innstall body-parser
+
+7. multer 
+- work with file cover
