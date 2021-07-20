@@ -32,3 +32,8 @@ inside function.
 
 9. defer
 -run after the page upload
+
+10. mongoose has way for us to run certain code before, after or during 
+- pre
+
+11. ./: current, ../: out of

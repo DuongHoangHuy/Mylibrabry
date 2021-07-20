@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
-
+const methodOverride = require('method-override')
 
 const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/authors');
@@ -19,6 +19,8 @@ app.set('views', __dirname+'/views');// where our views come from
 app.set('layout', 'layouts/layout');
 app.use(expressLayouts);// use this layout
 app.use(express.static('public'));// set up public file where to be
+app.use(methodOverride('_method'))
+app.use(express.urlencoded({limit: '10mb', extended: false}))
 // set up
 
 //-----------------work-----------------------
