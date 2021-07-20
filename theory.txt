@@ -24,5 +24,11 @@ inside function.
 6. express not easy to access input element from actual server:
 - innstall body-parser
 
-7. multer 
+7. multer library
 - work with file cover
+
+8. filepond library
+- cool file upload view
+
+9. defer
+-run after the page upload
