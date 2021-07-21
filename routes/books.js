@@ -36,12 +36,12 @@ router.get('/', async (req, res)=>{
 });
 
 // New book
-router.get('/new', async (req, res)=>{
+router.get('/new', (req, res)=>{
     renderNewPage(res, new Book())
 }); 
 
 // Create books route
-router.post('/', express.urlencoded({limit: '10mb', extended: false}), async (req, res)=>{    
+router.post('/', async (req, res)=>{    
     const book = new Book({
         title: req.body.title,
         author: req.body.author,
@@ -53,8 +53,7 @@ router.post('/', express.urlencoded({limit: '10mb', extended: false}), async (re
 
     try{
         const newbook = await book.save()
-        // res.redirect(`books/${newbook.id}`)
-        res.redirect('books')
+        res.redirect(`books/${newbook.id}`)
     }catch{
         // No more need
         // if(book.coverImageName != null){ // remove the error image
@@ -63,14 +62,80 @@ router.post('/', express.urlencoded({limit: '10mb', extended: false}), async (re
         renderNewPage(res, book, true)
     }
 })
+// Show books 
+router.get('/:id', async (req, res)=>{
+    try{
+        const book = await Book.findById(req.params.id).populate('author').exec()
+        res.render('books/show',{book: book})
+    }catch{
+        res.redirect('/')
+    }
+})
 
-//No more need b/c we not save in our computer more
-// function removeBookCover(filename){
-//     //remove thing we dont want out of the server
-//     fs.unlink(path.join(uploadPath, filename), err =>{
-//         if(err) console.error(err)
-//     })
-// }
+// Edit books
+router.get('/:id/edit', async (req, res)=>{
+    try{ 
+        const book = await Book.findById(req.params.id)
+        renderEditPage(res, book)
+    }catch{
+        res.redirect('/')
+    }
+}); 
+
+// Show books 
+router.get('/:id', async (req, res)=>{
+    try{
+        const book = await Book.findById(req.params.id).populate('author').exec()
+        res.render('books/show',{book: book})
+    }catch{
+        res.redirect('/')
+    }
+})
+
+// Update books route
+router.put('/:id', async (req, res)=>{    
+    let book
+    try{
+        book  = await Book.findById(req.params.id)
+        book.title= req.body.title,
+        book.author= req.body.author,
+        book.publishDate= new Date(req.body.publishDate),//publishDate is string 
+        book.pageCount= req.body.pageCount,        
+        book.description= req.body.description
+        if(req.body.cover != null && req.body.cover != ''){
+            saveCover(book, req.body.cover)
+        }
+        await book.save()
+        res.redirect(`/books/${book.id}`)
+    }catch{
+        console.log(req.body.publishDate)
+        if(book != null){// book found but wrong in edit
+            renderEditPage(res, book, true)
+        }else{
+            redirect('/')
+        }
+        
+    }
+})
+
+//Delete book
+router.delete('/:id', async(req, res)=>{
+    let book
+    try{
+        book  = await Book.findById(req.params.id)
+        await book.remove()
+        res.redirect('/books')
+    }catch{
+        if(book != null){
+            res.render('books/show', {
+                book: book,
+                errorMessage: 'Could not remove the book'
+            })
+        }else{
+            res.redirect('/')
+        }
+    }
+})
 
 // convert image to string -> buffer
 function saveCover(book, coverEncoded){
@@ -82,18 +147,27 @@ function saveCover(book, coverEncoded){
     }
 }
 
-async function renderNewPage(res, book, hasError = false){
+async function renderFormPage(res, book, form, hasError = false){
     try{
         const authors = await Author.find({})
         const params = {
             authors: authors,
             book: book
         }
-        if(hasError) params.errorMessage = 'Error creating book'
-        res.render('books/new', params)
+        if(hasError) params.errorMessage = `Error ${form}ing book`
+        res.render(`books/${form}`, params)
     }catch{
         res.redirect('/books')
     }
 }
+
+async function renderNewPage(res, book, hasError = false){
+    renderFormPage(res, book, 'new', hasError)
+}
+
+async function renderEditPage(res, book, hasError = false){
+    renderFormPage(res, book, 'edit', hasError)
+}
+
 
 module.exports = router;
