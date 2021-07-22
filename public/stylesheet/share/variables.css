@@ -1,0 +1,11 @@
+:root{
+    --color-base-hue: 135;
+    /* the opposite color */
+    --color-base-offset: 180;
+    --color-background-dark: hsla(var(--color-base-hue), 100%, 8%, 1);
+    --color-background-light: hsla(var(--color-base-hue), 100%, 16%, 1);
+    --color-text-light: hsla(var(--color-base-hue), 100%, 68%, 1);
+    /* for button */
+    --color-base-hue-btn-primary: 180;
+    --color-base-hue-btn-danger: calc(var(--color-base-hue-btn-primary) - var(--color-base-offset));
+}   

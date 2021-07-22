@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'Gotham Rounded Book';
+    src: url('GothamRounded-Book.eot');
+    src: url('GothamRounded-Book.eot?#iefix') format('embedded-opentype'),
+        url('GothamRounded-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham Rounded';
+    src: url('GothamRounded-Light.eot');
+    src: url('GothamRounded-Light.eot?#iefix') format('embedded-opentype'),
+        url('GothamRounded-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham Rounded';
+    src: url('GothamRounded-Medium.eot');
+    src: url('GothamRounded-Medium.eot?#iefix') format('embedded-opentype'),
+        url('GothamRounded-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
