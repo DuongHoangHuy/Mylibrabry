@@ -2,6 +2,9 @@
 @import 'share/variables.css';
 @import 'share/header.css';
 @import 'share/buttons.css';
+@import 'share/forms.css';
+@import 'share/authors.css';
+@import 'share/books.css';
 
 :root{
     font-family: 'Gotham Rounded', Verdana, sans-serif;
@@ -29,4 +32,8 @@ body{
 .page-header{
     font-size: 2rem;
     font-weight: 500;
+}
+
+.error-message{
+    color: orangered;
 }

@@ -37,3 +37,6 @@ inside function.
 - pre
 
 11. ./: current, ../: out of
+
+12. main css + javascript run trước import css
+-> không lấy dc độ dài img
